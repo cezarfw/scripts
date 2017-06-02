@@ -1,0 +1,36 @@
+#!/bin/bash
+#Script para instalar o cpanel
+clear
+echo -e #########################################
+echo -e #                                       #
+echo -e #         Instalação do cPanel          #
+echo -e #                                       #
+echo -e #########################################
+
+echo  "Tem certeza que deseja iniciar a instalaçã do cPanel? S/N"
+read -n1 escolha
+
+case $escolha in
+        S|s) echo "Iniciando a instalação do cpanel"
+             echo "Aguarde enquanto verifico as depenedencias do cPanel e instalo os pacotes necessários"
+             sleep 10
+             yum install -y gcc gcc-c++ gettext strace automake strace64 gdb bison libtool tar zip perl screen tcp_wrappers-devel wget
+             echo "Os pacotes e dependencias foram instaladas com sucesso, continuando a instalar o cPanel!"
+             echo "Esse procedimento pode levar um tempo, aguarde!"
+
+if [ echo $? =0 ]; then
+        mkdir /home/cpanel
+        cd /home/cpanel
+        wget http://layer1.cpanel.net/latest && sh latest
+        echo "A INSTALAÇÃO FINALALIZOU COM SUCESSO! Acesse seu WHM com domínio/2087"
+else
+        echo "Ocorreu um erro, verifique os pacotes necessários ou reinicie a instalação! Dúvidas cezarfw@gmail.com"
+
+fi
+        ;;
+
+
+        N|n) echo "Finalizando o script BYE BYE" ; sleep 2 ; clear ;  exit ;;
+
+        *) "Opção inválida!" ; echo ;
+esac
